@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class EndGame : MonoBehaviour
 {
@@ -14,10 +15,17 @@ public class EndGame : MonoBehaviour
     private float maxHeightReached = 0f;
     public float deathThreshold = 10f; // Distancia que debe caer debajo del máximo para perder
 
+    public TextMeshProUGUI winMessage;  // Aquí va la referencia al TextMeshProUGUI que mostrará el mensaje
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         maxHeightReached = transform.position.y;
+
+        if (winMessage != null)
+        {
+            winMessage.enabled = false; // Asegúrate de que el mensaje esté oculto al inicio
+        }
     }
 
     void Update()
@@ -48,7 +56,7 @@ public class EndGame : MonoBehaviour
             Die();
         }
 
-        if(transform.position.y >= finishLine)
+        if (transform.position.y >= finishLine)
         {
             Win();
         }
@@ -64,13 +72,17 @@ public class EndGame : MonoBehaviour
 
     void Die()
     {
-        // Reiniciar escena (puedes reemplazar esto con una pantalla de Game Over si querés)
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1); // Cambiar de escena
     }
 
     void Win()
     {
-        Time.timeScale = 0f;
+        Time.timeScale = 0f; // Detiene el juego
         Debug.Log("¡Ganaste!");
+
+        if (winMessage != null)
+        {
+            winMessage.enabled = true; // Muestra el mensaje de victoria
+        }
     }
 }

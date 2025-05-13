@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
@@ -8,12 +9,33 @@ public class PlayerShoot : MonoBehaviour
     public float projectileSpeed = 15f;
     public float detectionRadius = 10f;
 
+    public TextMeshProUGUI heightText;  
+    public Transform player;
+    private float maxHeight = 0f;
+
     void Update()
     {
-        // Disparo al tocar la pantalla
+       
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             ShootAtClosestEnemy();
+        }
+
+
+
+        if (player != null && heightText != null)
+        {
+            
+            float currentHeight = player.position.y;
+
+            
+            if (currentHeight > maxHeight)
+            {
+                maxHeight = currentHeight;
+            }
+
+            
+            heightText.text =  maxHeight.ToString("F0") + " m"; 
         }
     }
 
