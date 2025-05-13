@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Plataformas : MonoBehaviour
+public class OneWay : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
